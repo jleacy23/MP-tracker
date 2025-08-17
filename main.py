@@ -13,6 +13,7 @@ def main():
     parser.add_argument("-c", "--csv_file", type=str, help="Path to the CSV file")
     parser.add_argument("-b", "--balance", type=float, help="Account balance")
     parser.add_argument("-nd", "--net_deposits", type=float, help="Net deposits")
+    parser.add_argument("-d", "--date", type=str, help="Date for the PnL entry")
 
     args = parser.parse_args()
 
@@ -26,10 +27,12 @@ def main():
             missing.append("--balance")
         if args.net_deposits is None:
             missing.append("--net_deposits")
+        if args.date is None:
+            missing.append("--date")
         if missing:
             parser.error(f"{', '.join(missing)} required with --update")
-        pnl_calculator.update_csv_with_profit_change(args.csv_file, args.balance, args.net_deposits)
-        
+        pnl_calculator.update_csv_with_profit_change(args.date, args.csv_file, args.balance, args.net_deposits)
+
     elif args.report:
         pnl_calculator.report_latest_profit_change_and_commission()
 
