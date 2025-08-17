@@ -4,7 +4,7 @@ from src.pnl_calculator import Pnl_Calculator
 def main():
     parser = argparse.ArgumentParser(description="script to update or report pnl")
 
-    group = parser.add_mutually_exclusive_group(required=True)
+    group = parser.add_mutually_exclusive_group()
     group.add_argument("-u", "--update", action="store_true", help="Update the CSV with new pnl")
     group.add_argument("-r", "--report", action="store_true", help="Report current unsettled pnl, and commission")
 
