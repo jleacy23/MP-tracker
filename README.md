@@ -30,17 +30,17 @@ The main script to interact with the profit tracker is `main.py`.
 
 ### Update PnL
 
-To update the profit and loss for a specific account, use the `-u` or `--update` flag. This requires you to provide the csv file name, the current balance, the net deposits and the date.
+To update the profit and loss for a specific account, use the `-u` or `--update` flag. This requires you to provide the csv file name, the current balance, the net deposits and the date. You can also optionally add any staked amounts that are not yet reflected in the balance.
 
 ```bash
-python main.py -u -c <bookie_name>.csv -b <balance> -nd <net_deposits> -d <date>
+python main.py -u -c <bookie_name>.csv -b <balance> -nd <net_deposits> -d <date> -sk <stake1> <stake2> ...
 ```
 
 **Example:**
 ```bash
-python main.py -u -c betfair.csv -b 1050 -nd 1000 -d 2025-08-17
+python main.py -u -c betfair.csv -b 1050 -nd 1000 -d 2025-08-17 -sk 25 10
 ```
-This command will add a new entry to `pnl_histories/betfair.csv` with the new balance and calculate the profit change since the last settled transaction.
+This command will add a new entry to `pnl_histories/betfair.csv` with the new balance (plus the sum of stakes) and calculate the profit change since the last settled transaction. In this example, the balance used for calculation will be 1085 (1050 + 25 + 10).
 
 ### Report Unsettled PnL
 

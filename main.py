@@ -14,10 +14,12 @@ def main():
     parser.add_argument("-b", "--balance", type=float, help="Account balance")
     parser.add_argument("-nd", "--net_deposits", type=float, help="Net deposits")
     parser.add_argument("-d", "--date", type=str, help="Date for the PnL entry")
+    parser.add_argument("-sk", "--stakes", type=float, nargs = '+', help='Values of staked bets')
 
     args = parser.parse_args()
 
     pnl_calculator = Pnl_Calculator("pnl_histories")
+    stake_sum = sum(args.stakes) if args.stakes else 0
 
     if args.update:
         missing = []
@@ -31,7 +33,7 @@ def main():
             missing.append("--date")
         if missing:
             parser.error(f"{', '.join(missing)} required with --update")
-        pnl_calculator.update_csv_with_profit_change(args.date, args.csv_file, args.balance, args.net_deposits)
+        pnl_calculator.update_csv_with_profit_change(args.date, args.csv_file, args.balance + stake_sum, args.net_deposits)
 
     elif args.report:
         pnl_calculator.report_total_profit()
