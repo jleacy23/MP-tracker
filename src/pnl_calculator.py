@@ -51,9 +51,19 @@ class Pnl_Calculator:
         df.to_csv(f"{self.directory}/{csv_file}", index=False)
 
         return profit_change
+    
+    def report_total_profit(self):
+        total_profit = 0
+        for csv_file in self.csv_files:
+            if os.path.exists(f"{self.directory}/{csv_file}"):
+                df = pd.read_csv(f"{self.directory}/{csv_file}")
+                if not df.empty and "profit" in df.columns:
+                    total_profit += df["profit"].iloc[-1]
+        print(f"Total profit across all bookies: {round(total_profit,2)}")
 
     def report_latest_profit_change_and_commission(self, commission_ratio: float = 0.5):
         profit_change = 0
+        profit = 0
         for csv_file in self.csv_files:
             if os.path.exists(f"{self.directory}/{csv_file}"):
                 df = pd.read_csv(f"{self.directory}/{csv_file}")
@@ -62,8 +72,8 @@ class Pnl_Calculator:
                     if df["settled"].iloc[-1] == False:
                         latest_profit_change = df["profit change"].iloc[-1]
                         profit_change += latest_profit_change
-        print(f"Total unsettled profit across all bookies: {profit_change}")
-        print(f"Total commission (at {commission_ratio * 100}%): {profit_change * commission_ratio}")
+        print(f"Total UNSETTLED profit across all bookies: {profit_change}")
+        print(f"Total commission owed (at {commission_ratio * 100}%): {profit_change * commission_ratio}")
 
     def settle_profit(self, csv_file: str):
         if os.path.exists(f"{self.directory}/{csv_file}"):

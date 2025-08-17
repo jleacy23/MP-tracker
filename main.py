@@ -34,6 +34,7 @@ def main():
         pnl_calculator.update_csv_with_profit_change(args.date, args.csv_file, args.balance, args.net_deposits)
 
     elif args.report:
+        pnl_calculator.report_total_profit()
         pnl_calculator.report_latest_profit_change_and_commission()
 
     if args.settle:

@@ -1,6 +1,6 @@
 # Profit Tracker
 
-This is a command-line tool to track profits and losses from different sources, calculating unsettled profits and potential commissions.
+This is a command-line tool to track profits and losses from different sources, calculating unsettled profits and potential commissions.All you need to add are the current balances and net deposits for each betting site every time commission is requested. Possibly saving you time if you can figure out how to use this ugly mess.
 
 # Required Modules
 - Pandas
