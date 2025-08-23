@@ -2,7 +2,27 @@ import argparse
 from src.pnl_calculator import Pnl_Calculator
 
 def main():
-    parser = argparse.ArgumentParser(description="script to update or report pnl")
+    parser = argparse.ArgumentParser(
+        description="A command-line tool to track profits and losses from different sources.",
+        formatter_class=argparse.RawDescriptionHelpFormatter,
+        epilog="""
+Usage Examples:
+
+To update the profit and loss for a specific account:
+  python main.py -u -c <bookie_name>.csv -b <balance> -nd <net_deposits> -d <date>
+
+To include staked amounts that are not yet reflected in the balance:
+  python main.py -u -c betfair.csv -b 1050 -nd 1000 -d 2025-08-17 -sk 25 10
+
+To see the total unsettled profit across all your accounts:
+  python main.py -r
+
+To mark all unsettled profits as settled:
+  python main.py -s
+
+To combine settling with updating:
+  python main.py -u -c ladbrokes.csv -b 210 -nd 200 -d 2025-08-17 -s
+""")
 
     group = parser.add_mutually_exclusive_group()
     group.add_argument("-u", "--update", action="store_true", help="Update the CSV with new pnl")
